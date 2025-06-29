@@ -1,0 +1,9 @@
+# Ignore all .s files
+*.s
+# But do not ignore files ending with template.s
+!*template.s
+*.exe
+.llm.config.json
+.prompt.txt
+logs
+__pycache__
