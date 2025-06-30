@@ -48,8 +48,20 @@ def main():
         print(e)
         sys.exit(1)
 
-    # Load prompt template and kernel files.
+    # Select prompt template.
     prompt_template = prompt_manager.load_or_init_prompt()
+    answer = (
+        input(f"Use default prompt template? \n```\n{prompt_template}\n```\n(Y/n): ").strip().lower()
+    )
+    use_default = answer == "" or answer.startswith("y")
+    
+    # Load prompt template
+    if use_default is False:
+        prompt_template = prompt_manager.load_addition_prompt()
+        print(f"Using Addition prompt template. \n```\n{prompt_template}\n```\n")
+        
+
+    # Load kernel files.
     kernel_dir = kernel_selector.choose_kernel_dir()
     source_file = kernel_selector.find_header_file(kernel_dir)
 
