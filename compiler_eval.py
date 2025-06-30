@@ -51,15 +51,16 @@ def main():
     # Select prompt template.
     prompt_template = prompt_manager.load_or_init_prompt()
     answer = (
-        input(f"Use default prompt template? \n```\n{prompt_template}\n```\n(Y/n): ").strip().lower()
+        input(f"Use default prompt template? \n```\n{prompt_template}\n```\n(Y/n): ")
+        .strip()
+        .lower()
     )
     use_default = answer == "" or answer.startswith("y")
-    
+
     # Load prompt template
     if use_default is False:
         prompt_template = prompt_manager.load_addition_prompt()
         print(f"Using Addition prompt template. \n```\n{prompt_template}\n```\n")
-        
 
     # Load kernel files.
     kernel_dir = kernel_selector.choose_kernel_dir()
@@ -72,7 +73,6 @@ def main():
     response = llm.invoke([HumanMessage(content=full_prompt)])
     raw_asm = response.content
     clean_asm = ai_generator.strip_code_block_markers(raw_asm)
-
     # Prepare output directory and write .s file.
     log_dir = logger.create_log_dir()
     s_file = kernel_selector.find_template_s_file(kernel_dir)

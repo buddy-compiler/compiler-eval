@@ -41,7 +41,7 @@ def load_or_init_config() -> dict:
             "api_key": input("Enter your unified API key: ").strip(),
             "base_url": input("Enter the base URL: ").strip(),
             "default_model": input(
-                "Enter the default model name (e.g., gpt-4o or claude-sonnet-4-20250514 or gemini-2.0-flash-exp): "
+                "Enter the default model name (e.g., gpt-4o , claude-sonnet-4-20250514 , gemini-2.0-flash-exp or Meta-Llama-3.1-405B-Instruct): "
             ).strip(),
         }
         with open(CONFIG_PATH, "w") as f:
@@ -75,5 +75,9 @@ def create_llm(api_key: str, model: str, base_url: str) -> BaseChatModel:
         return ChatAnthropic(model=model, api_key=api_key, base_url=base_url)
     elif model_lower.startswith("gemini-"):
         return ChatOpenAI(model=model, api_key=api_key, base_url=base_url + "/v1")
+    elif model_lower.startswith("meta-llama-"):
+        return ChatOpenAI(
+            model=model, openai_api_key=api_key, base_url=base_url + "/v1"
+        )
     else:
         raise ValueError(f"Unsupported model type: {model}")
