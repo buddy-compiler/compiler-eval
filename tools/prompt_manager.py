@@ -41,6 +41,7 @@ def load_or_init_prompt() -> str:
         print(f"Default prompt template created at: {PROMPT_PATH}")
         return default_prompt
 
+
 def load_addition_prompt() -> str:
     """
     Load the prompt template from file, or create a default one if it doesn't exist.
@@ -49,14 +50,15 @@ def load_addition_prompt() -> str:
         str: The prompt template content.
     """
     addition_prompt = (
-            "You are a compiler that needs to convert the following C code into x86_64 assembly code.\n"
-            "Please provide the complete code. Do not generate comments! Generate correct AT&T formatted code!\n"
-            "Avoid operating on two memory addresses at the same time. Don't output the word: `assembly` or `asm`, because they are not x86_64 asm instructions.\n"
-            "Do NOT use any code block markers like ``` or ```nasm — only output the raw assembly code lines, nothing else.\n"
-            "Generate clean, error-free assembly code for the target architecture. Ensure that all symbols are uniquely defined without redefinitions, and that syntax follows standard conventions without unrecognized characters or invalid expressions. Use valid and supported instructions, ensuring operand sizes are consistent with their corresponding instructions. Avoid using incorrect or unsupported registers, and ensure correct memory referencing with no excessive operands. Ensure proper register usage, avoiding mismatched suffixes, and eliminate any segmentation faults or memory access violations. All symbols should be properly defined and linked, with no undefined references or relocation errors. Maintain clear, well-formed syntax and structure throughout the code.\n"
-            "The source code:\n{source_code}"
+        "You are a compiler that needs to convert the following C code into x86_64 assembly code.\n"
+        "Please provide the complete code. Do not generate comments! Generate correct AT&T formatted code!\n"
+        "Avoid operating on two memory addresses at the same time. Don't output the word: `assembly` or `asm`, because they are not x86_64 asm instructions.\n"
+        "Do NOT use any code block markers like ``` or ```nasm — only output the raw assembly code lines, nothing else.\n"
+        "Generate clean, error-free assembly code for the target architecture. Ensure that all symbols are uniquely defined without redefinitions, and that syntax follows standard conventions without unrecognized characters or invalid expressions. Use valid and supported instructions, ensuring operand sizes are consistent with their corresponding instructions. Avoid using incorrect or unsupported registers, and ensure correct memory referencing with no excessive operands. Ensure proper register usage, avoiding mismatched suffixes, and eliminate any segmentation faults or memory access violations. All symbols should be properly defined and linked, with no undefined references or relocation errors. Maintain clear, well-formed syntax and structure throughout the code.\n"
+        "The source code:\n{source_code}"
     )
     return addition_prompt
+
 
 def build_prompt(prompt_template: str, source_file_path: Path) -> str:
     """
